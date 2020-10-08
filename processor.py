@@ -20,15 +20,15 @@ def multiply_matrix_by_const(x):
 
 def multiply_matrices(a, b):
     global n_1, m_1, n_2, m_2
-    multiplication = []
+    matrices_multiplied = []
     for i in range(int(n_1)):
-        multiplication.append([])
+        matrices_multiplied.append([])
         for j in range(int(m_2)):
             multiplied = int()
             for k in range(int(m_1)):
                 multiplied += float(a[i][k]) * float(b[k][j])
-            multiplication[i].append(multiplied)
-    return multiplication
+            matrices_multiplied[i].append(multiplied)
+    return matrices_multiplied
 
 
 def sum_matrices(a, b):
@@ -54,6 +54,12 @@ def get_two_matrices():
     return matrix_a, matrix_b
 
 
+def print_result(matrix):
+    print("The result is: ")
+    for k in matrix:
+        print(' '.join(map(str, k)))
+
+
 while True:
     print("1. Add matrices\n2. Multiply matrix by a constant\n3. Multiply matrices\n0. Exit")
     choice = int(input("Your choice: "))
@@ -62,26 +68,19 @@ while True:
         if len(matrix_a) != len(matrix_b):
             print("The operation cannot be performed.\n")
         else:
-            print("The result is: ")
-            matrix_c = sum_matrices(matrix_a, matrix_b)
-            for k in matrix_c:
-                print(' '.join(map(str, k)))
-
+            the_summed_matrix = sum_matrices(matrix_a, matrix_b)
+            print_result(the_summed_matrix)
     elif choice == 2:
         row_and_column_1 = input("Enter size of matrix: ")
         n_1, m_1 = row_and_column_1.split()
         print("Enter matrix: ")
         matrix_a = get_matrix(int(n_1), int(m_1))
         multiplier = float((input("Enter constant: ")))
-        result = multiply_matrix_by_const(multiplier)
-        print("The result is: ")
-        for k in result:
-            print(' '.join(map(str, k)))
-
+        multiplied_by_const_matrix = multiply_matrix_by_const(multiplier)
+        print_result(multiplied_by_const_matrix)
     elif choice == 3:
         matrix_a, matrix_b = get_two_matrices()
-        result_matrix = multiply_matrices(matrix_a, matrix_b)
-        for k in result_matrix:
-            print(' '.join(map(str, k)))
+        multiplied_matrices = multiply_matrices(matrix_a, matrix_b)
+        print_result(multiplied_matrices)
     elif choice == 0:
         break
